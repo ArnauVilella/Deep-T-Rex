@@ -13,7 +13,7 @@ option_list <- list(
               help="Dataset size to create [default %default]"),
   make_option(c("--n"), type="integer", default=75, 
               help="Number of observations [default %default]"),
-  make_option(c("--p"), type="integer", default=100, 
+  make_option(c("--p"), type="integer", default=150, 
               help="Number of variables [default %default]"),
   make_option(c("--K"), type="integer", default=100, 
               help="Number of random experiments [default %default]"),
@@ -21,8 +21,8 @@ option_list <- list(
               help="Number of active variables [default %default]"),
   make_option(c("--num_dummies"), type="integer", default=100, 
               help="Number of dummies [default %default]"),
-  make_option(c("--sd"), type="numeric", default=1, 
-              help="Standard deviation of noise [default %default]")
+  make_option(c("--SNR"), type="numeric", default=1.0, 
+              help="SNR [default %default]")
 )
 
 opt_parser <- OptionParser(option_list=option_list)
@@ -36,7 +36,7 @@ p <- opt$p
 K <- opt$K
 num_act <- opt$num_act
 num_dummies <- opt$num_dummies
-sd <- opt$sd
+SNR <- opt$SNR
 
 create_subdir <- function(subdir) {
   if (!dir.exists(subdir)) {
@@ -65,6 +65,7 @@ for (i in 1:N_data) {
   true_actives <- which(beta > 0)
   
   X <- matrix(stats::rnorm(n * p), nrow=n, ncol=p)
+  sd <- sqrt(var(X %*% beta)/SNR)
   y <- X %*% beta + stats::rnorm(n, sd=sd)
   
   res_exp <- random_experiments(X, y, K=K)
