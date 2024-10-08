@@ -19,7 +19,7 @@ option_list <- list(
               help="Number of random experiments [default %default]"),
   make_option(c("--num_act"), type="integer", default=3, 
               help="Number of active variables [default %default]"),
-  make_option(c("--num_dummies"), type="integer", default=100, 
+  make_option(c("--num_dummies"), type="integer", default=150, 
               help="Number of dummies [default %default]"),
   make_option(c("--SNR"), type="numeric", default=1.0, 
               help="SNR [default %default]")
@@ -46,7 +46,7 @@ create_subdir <- function(subdir) {
 
 FDP_inv <- function(target_FDR, phi_T, true_actives, K, T_stop=T_stop) {
   min_v = 1
-  for (v in seq(1, 0.5, by=-1/K)) {
+  for (v in seq(1, 0.5, by=-1/K)) {  # Podem revertir el loop
     FDP <- sum(phi_T[-true_actives, T_stop] > v) / max(sum(phi_T[, T_stop] > v), 1)
     if (FDP < target_FDR){
       min_v = v
