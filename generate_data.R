@@ -45,14 +45,13 @@ create_subdir <- function(subdir) {
 }
 
 FDP_inv <- function(target_FDR, phi_T, true_actives, K, T_stop=T_stop) {
-  min_v = 1
-  for (v in seq(1, 0.5, by=-1/K)) {  # Podem revertir el loop
+  for (v in seq(0.5, 1, by=1/K)) {
     FDP <- sum(phi_T[-true_actives, T_stop] > v) / max(sum(phi_T[, T_stop] > v), 1)
-    if (FDP < target_FDR){
-      min_v = v
+    if (FDP <= target_FDR){
+      return(v)
     }
   }
-  return(min_v)
+  return(1)
 }
 
 main_dir <- "data"
