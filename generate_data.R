@@ -71,7 +71,8 @@ for (i in 1:N_data) {
   Phi_mat <- res_exp$phi_T_mat  # It's transposed, so T_stop columns and p rows
   v_thresh <- FDP_inv(target_FDR, res_exp$phi_T_mat, true_actives, K)
   
-  subdirs <- list(X="X", y="y", beta="beta", true_actives="true_actives", 
+  # subdirs <- list(X="X", y="y", beta="beta", true_actives="true_actives", Phi_mat="Phi_mat", v_thresh="v_thresh")
+  subdirs <- list(beta="beta", true_actives="true_actives", 
                   Phi_mat="Phi_mat", v_thresh="v_thresh")
   
   for (name in names(subdirs)) {
