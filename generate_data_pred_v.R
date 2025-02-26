@@ -3,6 +3,7 @@
 library(optparse)
 library(progress)
 library(TRexSelector)
+# Generates beta, true_actives, Phi_mat, v_thresh (objective, train v predicting net directly)
 
 option_list <- list(
   make_option(c("--target_FDR"), type="numeric", default=0.1, 

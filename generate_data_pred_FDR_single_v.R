@@ -4,6 +4,8 @@ library(optparse)
 library(progress)
 library(TRexSelector)
 options(scipen=999)
+# Generates beta, Phi_mat, v, FDR (objective, train v predicting net directly)
+# for a single Phi matrix, saves the FDP for a single v (randomly chosen within [0.5, 1])
 
 option_list <- list(
   make_option(c("--target_FDR"), type="numeric", default=0.1, 

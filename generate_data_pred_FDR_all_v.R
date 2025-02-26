@@ -5,6 +5,7 @@ library(progress)
 library(TRexSelector)
 options(scipen=999)
 # Generates beta, Phi, v, FDP (objective, train FDP predicting net and then do minimization on it)
+# for a single Phi matrix, saves the FDP for each v
 
 option_list <- list(
   make_option(c("--target_FDR"), type="numeric", default=0.1, 
@@ -52,7 +53,7 @@ create_subdir(main_dir)
 pb <- progress_bar$new(format = "Generating data [:bar] :current/:total (:percent)", total=N_systems*(floor(0.5*K) + 1))
 
 for (i in 1:N_systems) {
-  num_act_aux <- sample(1:num_act, 1)
+  # num_act_aux <- sample(1:num_act, 1)
   beta <- sample(c(rep(1, times=num_act), rep(0, times=p - num_act)))
   true_actives <- which(beta > 0)
   
